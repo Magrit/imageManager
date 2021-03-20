@@ -92,16 +92,16 @@ public class ImageService {
         return resizedImage;
     }
 
-    public boolean saveImage(ImageInputStream inputStream, String name) throws IOException {
+    public ImageDescription saveImage(ImageInputStream inputStream, String name) throws IOException {
         List<String> formats = getImageFormat(inputStream);
         BufferedImage bufferedImage = ImageIO.read(inputStream);
         ImageDescription imageDescription = saveImageToDb(bufferedImage, name, formats.get(0));
         boolean imageToFile = saveImageToFile(bufferedImage, imageDescription, false);
         boolean miniatureToFile = saveImageToFile(resizeImage(bufferedImage), imageDescription, true);
         if (imageToFile && miniatureToFile) {
-            return true;
+            return imageDescription;
         }
-        return false;
+        return null;
     }
 
     public List<ImageDescription> findAll() {
@@ -112,7 +112,7 @@ public class ImageService {
         imageRepository.deleteById(id);
     }
 
-    public void deleteImage(long id) throws IOException {
+    public void deleteImageInFile(long id) throws IOException {
         ImageDescription image = imageRepository.getOne(id);
         String path = "src/main/webapp/" + image.getPath();
         String minPath = "src/main/webapp/" + image.getMinPath();
