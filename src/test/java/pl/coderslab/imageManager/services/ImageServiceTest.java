@@ -74,14 +74,14 @@ class ImageServiceTest {
     }
 
     @Test
-    void when_findAll_by_service_than_findAll_by_repository() {
+    public void when_findAll_by_service_than_findAll_by_repository() {
         List<ImageDescription> repositoryAll = imageRepository.findAll();
         List<ImageDescription> serviceAll = imageService.findAll();
         assertEquals(repositoryAll, serviceAll);
     }
 
     @Test
-    void when_delete_in_database_than_null() {
+    public void when_delete_in_database_than_null() {
         try {
             byte[] bytes = Files.readAllBytes(path);
             InputStream inputStream = new ByteArrayInputStream(bytes);
