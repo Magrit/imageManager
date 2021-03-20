@@ -40,8 +40,8 @@ public class ImageController {
         try {
             InputStream inputStream = imagePart.getInputStream();
             ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
-            boolean isSaved = imageService.saveImage(imageInputStream, name);
-            if (isSaved) {
+            ImageDescription savedImage = imageService.saveImage(imageInputStream, name);
+            if (savedImage != null) {
                 return "redirect:/";
             }
         } catch (IOException exception) {
@@ -53,7 +53,7 @@ public class ImageController {
     @RequestMapping("/delete/{id}")
     public String deleteImage(@PathVariable long id) {
         try {
-            imageService.deleteImage(id);
+            imageService.deleteImageInFile(id);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
