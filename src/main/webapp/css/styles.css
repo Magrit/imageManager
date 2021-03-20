@@ -1,0 +1,165 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    font-family: Lato, serif;
+    font-size: 1rem;
+    color: #343a40;
+}
+
+header {
+    background-color: #9a012a;
+    height: 4rem;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+h1 {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 2rem;
+    margin-top: 0.75rem;
+    margin-left: 1rem;
+    text-align: center;
+}
+
+h2 {
+    color: #9a012a;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+li {
+    display: inline-block;
+    margin: 1rem;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    align-items: center;
+    color: #e6e6e8;
+}
+
+.miniature {
+    cursor: pointer;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 1rem;
+}
+
+.btn-menu {
+    border: 0.2rem solid #e6e6e8;
+    padding: 0.25rem;
+    margin: 1rem;
+    color: #e6e6e8;
+}
+
+.btn {
+    border-radius: 6rem;
+    background-color: #9a012a;
+    color: #e6e6e8;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+
+.close {
+    color: #9a012a;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    width: 100%;
+    height: 100%;
+}
+
+.box {
+    height: 20rem;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e6e6e8;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: space-between;
+}
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+    font-family: Lato, sans-serif;
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+    font-weight: 700;
+}
+
+.close-x {
+    position: absolute;
+    font-size: 1rem;
+    color: #9a012a;
+    padding: 0 0.3rem;
+    margin: 0.15rem;
+    border: 0.2rem solid #9a012a;
+    border-radius: 10rem;
+}
+
+.card {
+    margin: 1rem;
+    height: 100%;
+    background-color: #e6e6e8
+}
+
+.lightBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #e6e6e8;
+}
+
+.lightBox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
