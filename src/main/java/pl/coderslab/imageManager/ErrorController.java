@@ -1,4 +1,4 @@
-package pl.coderslab.imageManager.exeption;
+package pl.coderslab.imageManager;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
