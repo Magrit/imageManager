@@ -1,4 +1,4 @@
-package pl.coderslab.imageManager.controllers;
+package pl.coderslab.imageManager.image;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,34 +6,36 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.coderslab.imageManager.repositories.ImageRepository;
-import pl.coderslab.imageManager.services.ImageService;
+import pl.coderslab.imageManager.mock.MockDatabase;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class ImageControllerTest {
     private static ImageController imageController;
-    private static String HOME_PAGE_VIEW_NAME = "home";
-    private static String FORM_PAGE_VIEW_NAME = "form";
-    private ImageService imageService;
+    private static final String HOME_PAGE_VIEW_NAME = "home";
+    private static final String FORM_PAGE_VIEW_NAME = "form";
+    private static ImageService imageService;
+    private static ImageRepository imageRepository;
 
     @BeforeEach
-    public void beforeClass() {
-        imageService = new ImageService(mock(ImageRepository.class));
-        imageController = new ImageController(imageService);
+    public void setUp() {
+        imageRepository = new MockDatabase();
+        imageService = new ImageService(imageRepository);
+        imageController = new ImageController(imageService, imageRepository);
     }
 
     @Test
-    public void test_home_action_return_home() throws Exception {
+    public void should_return_home_page_when_home_action_called() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/image"))
                 .andExpect(MockMvcResultMatchers.view().name(HOME_PAGE_VIEW_NAME));
     }
 
     @Test
-    public void test_upload_action_return_form() throws Exception {
+    public void should_return_form_when_upload_called() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/upload"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/image/upload"))
                 .andExpect(MockMvcResultMatchers.view().name(FORM_PAGE_VIEW_NAME));
     }
 
