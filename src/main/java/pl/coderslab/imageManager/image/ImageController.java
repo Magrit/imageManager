@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.coderslab.imageManager.exeption.ImageSavingException;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 class ImageController {
 
-    private final ImageService imageService;
+    private final ImageFacade imageFacade;
     private final ImageRepository imageRepository;
 
     @GetMapping
@@ -37,8 +38,8 @@ class ImageController {
         try {
             InputStream inputStream = imagePart.getInputStream();
             ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
-            imageService.saveImage(imageInputStream, name);
-        } catch (IOException exception) {
+            imageFacade.saveImage(imageInputStream, name);
+        } catch (IOException | ImageSavingException exception) {
             return "redirect:/error";
         }
         return "redirect:/image";
@@ -47,7 +48,7 @@ class ImageController {
     @DeleteMapping("/{id}")
     public String deleteImage(@PathVariable long id) {
         try {
-            imageService.deleteImage(id);
+            imageFacade.deleteImage(id);
         } catch (IOException exception) {
             exception.printStackTrace();
         }

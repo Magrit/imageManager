@@ -2,6 +2,7 @@ package pl.coderslab.imageManager.image;
 
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
+import pl.coderslab.imageManager.exeption.ImageSavingException;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -18,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class ImageService {
+public class ImageFacade {
     private final int TARGET_HEIGHT = 150;
     private final int RELATIVE_IMAGE_PATH = 3;
     private final int IMAGE_FILE_PATH = 5;
@@ -26,12 +27,12 @@ public class ImageService {
     private final String ORIGINAL_FILE_DIRECTORY = ".";
     private final ImageRepository imageRepository;
 
-    public ImageService(ImageRepository imageRepository) {
+    public ImageFacade(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
     @Transactional
-    public void saveImage(ImageInputStream inputStream, String name) throws IOException {
+    public void saveImage(ImageInputStream inputStream, String name) throws IOException, ImageSavingException {
         List<String> formats = getFormatName(inputStream);
         BufferedImage bufferedImage = ImageIO.read(inputStream);
         Image image = saveImageToDb(bufferedImage, name, formats.get(0));
@@ -55,8 +56,7 @@ public class ImageService {
         return formatNames;
     }
 
-    private Image saveImageToDb(BufferedImage image, String name, String format)
-            throws IOException {
+    private Image saveImageToDb(BufferedImage image, String name, String format) {
         Image imageDb = new Image.ImageBuilder()
                 .name(name)
                 .width(image.getWidth())
@@ -76,7 +76,7 @@ public class ImageService {
         imageRepository.save(image);
     }
 
-    private boolean saveImageToFile(BufferedImage image, Image imageDescription, boolean isMiniature) {
+    private boolean saveImageToFile(BufferedImage image, Image imageDescription, boolean isMiniature) throws ImageSavingException {
         String imageType = imageDescription.getFormat().toLowerCase();
         String filePath = "src/main/webapp/images/" + imageDescription.getId() + "/"
                 + imageDescription.getName();

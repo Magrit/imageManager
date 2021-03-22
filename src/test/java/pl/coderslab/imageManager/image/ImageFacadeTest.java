@@ -25,9 +25,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-class ImageServiceTest {
+class ImageFacadeTest {
 
-    private ImageService imageService;
+    private ImageFacade imageFacade;
     private ImageRepository imageRepository;
     private static final String ABSOLUTE_IMAGE_PATH = "src/main/webapp/";
 
@@ -40,7 +40,7 @@ class ImageServiceTest {
     @BeforeEach
     public void setUp() {
         imageRepository = new MockDatabase();
-        imageService = new ImageService(imageRepository);
+        imageFacade = new ImageFacade(imageRepository);
     }
 
     @Test
@@ -51,7 +51,7 @@ class ImageServiceTest {
         InputStream inputStream = new ByteArrayInputStream(bytes);
         ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
         //than
-        imageService.saveImage(imageInputStream, "fruits");
+        imageFacade.saveImage(imageInputStream, "fruits");
         Image fruits = imageRepository.getByName("fruits");
         //should
         String fruitsPath = ABSOLUTE_IMAGE_PATH + fruits.getPath();
@@ -66,10 +66,10 @@ class ImageServiceTest {
         byte[] bytes = Files.readAllBytes(path);
         InputStream inputStream = new ByteArrayInputStream(bytes);
         ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
-        imageService.saveImage(imageInputStream, "fruits");
+        imageFacade.saveImage(imageInputStream, "fruits");
         //than
         Image savedImage = imageRepository.getByName("fruits");
-        imageService.deleteImage(savedImage.getId());
+        imageFacade.deleteImage(savedImage.getId());
         //should
         Image deletedImage = imageRepository.getOne(savedImage.getId());
         assertNull(deletedImage);

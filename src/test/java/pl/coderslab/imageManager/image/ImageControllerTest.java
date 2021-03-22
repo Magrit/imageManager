@@ -8,21 +8,20 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.coderslab.imageManager.mock.MockDatabase;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class ImageControllerTest {
     private static ImageController imageController;
     private static final String HOME_PAGE_VIEW_NAME = "home";
     private static final String FORM_PAGE_VIEW_NAME = "form";
-    private static ImageService imageService;
+    private static ImageFacade imageFacade;
     private static ImageRepository imageRepository;
 
     @BeforeEach
     public void setUp() {
         imageRepository = new MockDatabase();
-        imageService = new ImageService(imageRepository);
-        imageController = new ImageController(imageService, imageRepository);
+        imageFacade = new ImageFacade(imageRepository);
+        imageController = new ImageController(imageFacade, imageRepository);
     }
 
     @Test
