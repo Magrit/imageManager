@@ -1,5 +1,6 @@
 package pl.coderslab.imageManager.image;
 
+import lombok.RequiredArgsConstructor;
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import pl.coderslab.imageManager.exeption.ImageSavingException;
@@ -9,7 +10,6 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.transaction.Transactional;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ImageFacade {
     private final int TARGET_HEIGHT = 150;
     private final int RELATIVE_IMAGE_PATH = 3;
@@ -26,10 +27,6 @@ public class ImageFacade {
     private final String MINIFIED_FILE_DIRECTORY = "_min.";
     private final String ORIGINAL_FILE_DIRECTORY = ".";
     private final ImageRepository imageRepository;
-
-    public ImageFacade(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
-    }
 
     @Transactional
     public void saveImage(ImageInputStream inputStream, String name) throws IOException, ImageSavingException {
@@ -67,7 +64,7 @@ public class ImageFacade {
         return imageRepository.save(imageDb);
     }
 
-    private void savePath(Image image, String path, boolean isMiniature) {
+    private void savePathToDb(Image image, String path, boolean isMiniature) {
         if (isMiniature) {
             image.setMinPath(path);
         } else {
@@ -97,7 +94,7 @@ public class ImageFacade {
         } catch (IOException exception) {
             return false;
         }
-        savePath(imageDescription, path.subpath(RELATIVE_IMAGE_PATH, path.getNameCount()).toString(), isMiniature);
+        savePathToDb(imageDescription, path.subpath(RELATIVE_IMAGE_PATH, path.getNameCount()).toString(), isMiniature);
         return true;
     }
 

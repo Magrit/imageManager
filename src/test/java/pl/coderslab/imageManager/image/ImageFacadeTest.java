@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import pl.coderslab.imageManager.exeption.ImageSavingException;
 import pl.coderslab.imageManager.mock.MockDatabase;
 
 import javax.imageio.ImageIO;
@@ -44,7 +45,7 @@ class ImageFacadeTest {
     }
 
     @Test
-    public void when_saving_image_return_image() throws IOException {
+    public void when_saving_image_return_image() throws IOException, ImageSavingException {
         //given
         BufferedImage bufferedImage = ImageIO.read(file);
         byte[] bytes = Files.readAllBytes(path);
@@ -61,7 +62,7 @@ class ImageFacadeTest {
     }
 
     @Test
-    public void when_delete_in_database_than_null() throws IOException {
+    public void when_delete_in_database_than_null() throws IOException, ImageSavingException {
         //given
         byte[] bytes = Files.readAllBytes(path);
         InputStream inputStream = new ByteArrayInputStream(bytes);

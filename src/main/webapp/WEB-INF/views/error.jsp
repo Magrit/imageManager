@@ -1,4 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <body>
 <%@include file="header.jsp" %>
 
-<h1>${errorMsg}</h1>
+<p>${errorMsg}</p>
 
 <%@include file="footer.jsp" %>
 <script src="../js/lightbox.js"></script>
