@@ -1,7 +1,6 @@
-package pl.coderslab.imageManager.model;
+package pl.coderslab.imageManager.image;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,11 +8,14 @@ import javax.persistence.*;
 @Table
 @Setter
 @Getter
-public class ImageDescription {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String name;
     private String path;
