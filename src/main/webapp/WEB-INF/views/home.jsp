@@ -14,7 +14,7 @@
         <div class="container">
             <div class="card">
                 <div class="close">
-                    <a class="close-x" href="/delete/${image.id}"> x </a>
+                    <a class="close-x" href="/${image.id}"> x </a>
                 </div>
                 <img class="miniature" src="<c:url value="${image.minPath}" />">
                 <h2>${image.name}</h2>

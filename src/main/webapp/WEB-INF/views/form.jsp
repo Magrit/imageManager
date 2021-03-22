@@ -10,9 +10,9 @@
 <div class="center">
     <div class="box">
         <h2>Image Manager</h2>
-        <form action="/upload" method="post" enctype="multipart/form-data">
+        <form action="/image/upload" method="post" enctype="multipart/form-data">
             <label>
-                Nazwa:
+                Name:
                 <input type="text" id="name" name="name">
             </label><br/>
             <label>

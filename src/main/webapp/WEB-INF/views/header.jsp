@@ -3,9 +3,9 @@
 <body>
 <header>
     <h1>
-        <a href="/">Image Manager</a>
+        <a href="/image">Image Manager</a>
     </h1>
-    <a class="btn-menu" href="/upload">dodaj zdjęcie</a>
+    <a class="btn-menu" href="/image/upload">dodaj zdjęcie</a>
 </header>
 </body>
 </html>
