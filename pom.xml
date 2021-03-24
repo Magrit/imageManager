@@ -14,7 +14,7 @@
     <name>ImageManager</name>
     <description>Image Manager - test task for wavy apps</description>
     <properties>
-        <java.version>1.11</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
