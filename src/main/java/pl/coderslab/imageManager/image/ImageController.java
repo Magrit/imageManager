@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Controller
-@RequestMapping("/image")
+@RequestMapping(value = "/image")
 @RequiredArgsConstructor
 class ImageController {
 
