@@ -45,7 +45,7 @@ class ImageController {
         return "redirect:/image";
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public String deleteImage(@PathVariable long id) {
         try {
             imageFacade.deleteImage(id);
