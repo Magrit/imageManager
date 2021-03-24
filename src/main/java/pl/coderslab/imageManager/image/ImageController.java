@@ -50,7 +50,7 @@ class ImageController {
         try {
             imageFacade.deleteImage(id);
         } catch (IOException exception) {
-            exception.printStackTrace();
+            return "redirect:/error";
         }
         return "redirect:/image";
     }
