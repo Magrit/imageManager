@@ -19,7 +19,7 @@ class ImageControllerTest {
 
     @BeforeEach
     public void setUp() {
-        imageRepository = new MockDatabase();
+        imageRepository = mock(ImageRepository.class);
         imageFacade = new ImageFacade(imageRepository);
         imageController = new ImageController(imageFacade, imageRepository);
     }

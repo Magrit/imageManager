@@ -2,8 +2,6 @@ package pl.coderslab.imageManager.image;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import pl.coderslab.imageManager.exeption.ImageSavingException;
 import pl.coderslab.imageManager.mock.MockDatabase;
 
@@ -35,9 +33,6 @@ class ImageFacadeTest {
     private final Path path = Paths.get("src/main/webapp/images/0/fruits.jpeg");
     private final File file = path.toFile();
 
-    @Autowired
-    private TestEntityManager entityManager;
-
     @BeforeEach
     public void setUp() {
         imageRepository = new MockDatabase();
@@ -45,31 +40,32 @@ class ImageFacadeTest {
     }
 
     @Test
-    public void when_saving_image_return_image() throws IOException, ImageSavingException {
+    public void should_save_image_to_database_and_file_when_saving_image() throws IOException, ImageSavingException {
         //given
         BufferedImage bufferedImage = ImageIO.read(file);
         byte[] bytes = Files.readAllBytes(path);
         InputStream inputStream = new ByteArrayInputStream(bytes);
         ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
+        //when
+        imageFacade.saveImage(imageInputStream, "fruit");
+        Image fruit = imageRepository.findOneByName("fruit");
         //than
-        imageFacade.saveImage(imageInputStream, "fruits");
-        Image fruits = imageRepository.getByName("fruits");
-        //should
-        String fruitsPath = ABSOLUTE_IMAGE_PATH + fruits.getPath();
+        String fruitsPath = ABSOLUTE_IMAGE_PATH + fruit.getPath();
         BufferedImage fruitsBufferedImage = ImageIO.read(Paths.get(fruitsPath).toFile());
-        assertNotNull(fruits);
+        assertNotNull(fruit);
         assertEquals(getMetadata(bufferedImage), getMetadata(fruitsBufferedImage));
     }
 
     @Test
-    public void when_delete_in_database_than_null() throws IOException, ImageSavingException {
+    public void should_delete_image() throws IOException, ImageSavingException {
         //given
         byte[] bytes = Files.readAllBytes(path);
         InputStream inputStream = new ByteArrayInputStream(bytes);
         ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
         imageFacade.saveImage(imageInputStream, "fruits");
         //than
-        Image savedImage = imageRepository.getByName("fruits");
+        Image savedImage = imageRepository.findOneByName("fruits");
+        assertNotNull(savedImage);
         imageFacade.deleteImage(savedImage.getId());
         //should
         Image deletedImage = imageRepository.getOne(savedImage.getId());

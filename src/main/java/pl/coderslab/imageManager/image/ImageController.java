@@ -40,7 +40,7 @@ class ImageController {
             ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
             imageFacade.saveImage(imageInputStream, name);
         } catch (IOException | ImageSavingException exception) {
-            return "redirect:/errors";
+            return "redirect:/error";
         }
         return "redirect:/image";
     }

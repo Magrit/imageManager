@@ -13,7 +13,7 @@ public class MockDatabase implements ImageRepository {
     private static final Map<Long, Image> images = new HashMap<>();
 
     @Override
-    public Image getByName(String name) {
+    public Image findOneByName(String name) {
         Set<Map.Entry<Long, Image>> entrySet = images.entrySet();
         Iterator<Map.Entry<Long, Image>> iterator = entrySet.iterator();
         while (iterator.hasNext()) {
@@ -85,7 +85,7 @@ public class MockDatabase implements ImageRepository {
     public Image save(Image image) {
         Long nextId = image.getId();
         if (nextId == null){
-            nextId = Long.parseLong(String.valueOf(images.size()+1));
+            nextId = Long.parseLong(String.valueOf(images.size()));
         }
         image.setId(nextId);
         images.put(nextId, image);
